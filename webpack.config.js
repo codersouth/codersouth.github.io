@@ -5,7 +5,7 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const { SourceMapDevToolPlugin } = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 // const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer')
-const CopyWebpackPlugin = require('copy-webpack-plugin')
+// const CopyWebpackPlugin = require('copy-webpack-plugin')
 
 const TARGET = ['chrome64', 'edge79', 'firefox67', 'safari11.1']
 

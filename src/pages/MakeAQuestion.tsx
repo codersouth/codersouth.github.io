@@ -8,14 +8,17 @@ import {
   VStack,
 } from '@chakra-ui/react'
 import { useForm } from 'react-hook-form'
-import { setQuestion } from '../data/firebase'
-import type { Question } from '../data/firebase'
+import { Question, useQuestions } from '../data/useQuestions'
 
 export const MakeAQuestion: VFC = () => {
   const { handleSubmit, register } = useForm<Question>()
-  const onSubmit = useCallback(async (question: Question) => {
-    await setQuestion(question)
-  }, [])
+  const { makeQuestion } = useQuestions()
+  const onSubmit = useCallback(
+    async (question: Question) => {
+      await makeQuestion(question)
+    },
+    [makeQuestion],
+  )
 
   return (
     <Container maxH="container.lg">

@@ -3,10 +3,10 @@ import { Colors, ComponentStyleConfig, extendTheme } from '@chakra-ui/react'
 const Button: ComponentStyleConfig = {
   variants: {
     cs: {
-      borderRadius: '2xl',
+      borderRadius: 'xl',
       color: 'gray.800',
       transition: 'all 200ms linear',
-
+      background: 'green.400',
       _hover: {
         color: 'gray.900',
       },
@@ -82,8 +82,8 @@ const theme = extendTheme({
   },
   fonts: {
     body: 'Inter',
-    heading: 'Open Sans'
-  }
+    heading: 'Open Sans',
+  },
 })
 
 export { theme }

@@ -1,14 +1,9 @@
-import React, { useEffect, useState, VFC } from 'react'
+import React, { VFC } from 'react'
 import { Container, Text, HStack } from '@chakra-ui/react'
-import { onQuestion } from '../data/firebase'
-import type { QuestionWithId } from '../data/firebase'
+import { useQuestions } from '../data/useQuestions'
 
 export const Questions: VFC = () => {
-  const [questions, setQuestions] = useState<readonly QuestionWithId[]>([])
-
-  useEffect(() => {
-    onQuestion((dbQuestions) => setQuestions(dbQuestions))
-  }, [])
+  const { questions } = useQuestions()
 
   return (
     <Container maxH="container.lg">
