@@ -73,7 +73,7 @@ const theme = extendTheme({
   styles: {
     global: {
       body: {
-        bg: 'red.500',
+        bg: 'gray.100',
       },
     },
   },

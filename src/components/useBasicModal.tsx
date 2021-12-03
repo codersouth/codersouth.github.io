@@ -4,6 +4,7 @@ import {
   ModalContent,
   ModalHeader,
   ModalOverlay,
+  Box,
   useDisclosure,
 } from '@chakra-ui/react'
 import React from 'react'
@@ -27,7 +28,9 @@ export const useBasicModal = ({
       <ModalOverlay />
       <ModalContent>
         <ModalHeader>{header}</ModalHeader>
-        <ModalBody>{body}</ModalBody>
+        <ModalBody>
+          <Box padding="0.2rem 0 2rem">{body}</Box>
+        </ModalBody>
       </ModalContent>
     </Modal>,
   ]

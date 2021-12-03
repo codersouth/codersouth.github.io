@@ -10,12 +10,12 @@ enum QA {
 }
 
 type Question = {
-  readonly name: string
+  readonly user?: string | null
   readonly question: string
 }
 
 type QuestionWithId = {
-  readonly name: string
+  readonly user: string
   readonly question: string
   readonly id: string
 }
@@ -24,7 +24,7 @@ const mapDataToQuestions = (
   snapshot: DataSnapshot,
 ): readonly QuestionWithId[] =>
   Object.entries(snapshot.val()).map(([id, val]: readonly unknown[]) => ({
-    name: (val as QuestionWithId).name,
+    user: (val as QuestionWithId).user,
     question: (val as QuestionWithId).question,
     id: id as string,
   }))
