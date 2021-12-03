@@ -8,7 +8,6 @@ import {
   Flex,
   Avatar,
   Box,
-  Badge,
 } from '@chakra-ui/react'
 import { useQuestions } from '../data/useQuestions'
 import { useUser } from '../data/useUser'

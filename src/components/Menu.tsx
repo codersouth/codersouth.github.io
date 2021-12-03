@@ -1,5 +1,13 @@
 import React, { VFC } from 'react'
-import { HStack, Button, Box, Image, Heading } from '@chakra-ui/react'
+import { QuestionIcon, CloseIcon, Search2Icon } from '@chakra-ui/icons'
+import {
+  HStack,
+  Button,
+  Box,
+  Image,
+  Heading,
+  IconButton,
+} from '@chakra-ui/react'
 import { Link } from 'react-router-dom'
 import { useUser } from '../data/useUser'
 import { SignUp } from '../pages/SignUp'
@@ -39,16 +47,27 @@ export const Menu: VFC = () => {
           </>
         ) : (
           <>
-            <Button as={Link} to="/make-a-question" variant="ghost">
-              Hacer una pregunta
-            </Button>
+            <IconButton
+              aria-label="link"
+              as={Link}
+              icon={<QuestionIcon />}
+              to="/make-a-question"
+              variant="ghost"
+            />
+            <IconButton
+              aria-label="link"
+              as={Link}
+              icon={<Search2Icon />}
+              to="/questions"
+              variant="ghost"
+            />
 
-            <Button as={Link} to="/questions" variant="ghost">
-              Ver las preguntas
-            </Button>
-            <Button onClick={signOut} variant="ghost">
-              Salir
-            </Button>
+            <IconButton
+              aria-label="button"
+              icon={<CloseIcon />}
+              onClick={signOut}
+              variant="ghost"
+            />
           </>
         )}
       </HStack>
