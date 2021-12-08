@@ -1,25 +1,37 @@
 import { useQuery } from 'react-query'
-import { getAuth, signOut } from 'firebase/auth'
-
-const auth = getAuth()
+import { signOut } from 'firebase/auth'
+import { useEffect, useState } from 'react'
+import { auth } from './firebase'
 
 enum UseUser {
   key = 'userHook',
 }
 
 export const useUser = () => {
-  const { data: user, refetch } = useQuery(
+  const [shouldUpdate, setShouldUpdate] = useState(false)
+  const {
+    data: user,
+    refetch,
+    isLoading,
+    isFetched,
+  } = useQuery(
     UseUser.key,
     () => {
       return Promise.resolve(auth.currentUser)
     },
     {
-      enabled: !!auth.currentUser,
+      enabled: shouldUpdate,
     },
   )
 
+  useEffect(() => {
+    auth.onAuthStateChanged((user) => setShouldUpdate(!!user))
+  }, [])
+
   return {
     user,
+    isLoading,
+    isFetched,
     refreshUser: refetch,
     signOut: () => {
       signOut(auth).then(() => refetch())

@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "description": "codersouth",
   "scripts": {
-    "build": "webpack",
-    "start": "webpack serve",
+    "build": "NODE_ENV=production webpack",
+    "start": "NODE_ENV=development webpack serve",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "prepare": "husky install"
   },
@@ -27,6 +27,7 @@
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "react-hook-form": "7.20.5",
+    "react-icons": "4.3.1",
     "react-query": "3.34.0",
     "react-router": "6.0.2",
     "react-router-dom": "6.0.2",

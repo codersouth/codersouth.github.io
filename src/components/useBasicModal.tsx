@@ -27,7 +27,7 @@ export const useBasicModal = ({
     <Modal isOpen={isOpen} key={name} onClose={onClose}>
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader>{header}</ModalHeader>
+        <ModalHeader fontWeight="900">{header}</ModalHeader>
         <ModalBody>
           <Box padding="0.2rem 0 2rem">{body}</Box>
         </ModalBody>

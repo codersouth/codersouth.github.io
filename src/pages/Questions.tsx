@@ -1,29 +1,71 @@
-import React, { useMemo, useState, VFC } from 'react'
+import React, { useCallback, useMemo, useState, VFC } from 'react'
 import {
-  Button,
   Text,
+  Textarea,
+  Heading,
+  Button,
   VStack,
   HStack,
-  Heading,
   Flex,
   Avatar,
   Box,
 } from '@chakra-ui/react'
-import { useQuestions } from '../data/useQuestions'
+import { useForm } from 'react-hook-form'
+import { Question, useQuestions } from '../data/useQuestions'
 import { useUser } from '../data/useUser'
 
-export const Questions: VFC = () => {
+const Questions: VFC = () => {
+  const { user } = useUser()
   const [filter, setFilter] = useState<string | null | undefined>()
   const { questions } = useQuestions()
-  const { user } = useUser()
   const filteredQuestions = useMemo(
     () => (filter ? questions.filter((q) => q.user === filter) : questions),
     [filter, questions],
   )
 
+  const { handleSubmit, register } = useForm<Question>()
+  const { makeQuestion } = useQuestions()
+  const onSubmit = useCallback(
+    async ({ question }: Question) => {
+      await makeQuestion({
+        question,
+        user: user?.email,
+        date: Date.now(),
+      })
+    },
+    [makeQuestion, user],
+  )
+
   return (
-    <VStack alignItems="flex-start" spacing={6}>
+    <VStack
+      alignItems="flex-start"
+      justifyContent="stretch"
+      spacing={8}
+      width="full"
+    >
       <Heading>Preguntas</Heading>
+      <Text>Hacer una pregunta:</Text>
+      <VStack
+        alignItems="flex-start"
+        background="white"
+        borderRadius="2xl"
+        boxShadow="2xl"
+        padding="2rem 1.5rem"
+        width="full"
+      >
+        <form onSubmit={handleSubmit(onSubmit)} style={{ width: '100%' }}>
+          <Textarea
+            {...register('question')}
+            background="teal.50"
+            marginBottom={6}
+            placeholder="Pregunta"
+            resize="none"
+            w="full"
+          />
+          <Button type="submit">Preguntar</Button>
+        </form>
+      </VStack>
+
       <Text>
         {!filter
           ? 'Mostrando todas las preguntas'
@@ -46,14 +88,14 @@ export const Questions: VFC = () => {
 
       {filteredQuestions.map(({ user, id, question }) => (
         <Flex
-          bg="teal.50"
+          bg="white"
           borderRadius="2xl"
           boxShadow="lg"
           key={id}
           padding="1rem 1.2rem"
           width="full"
         >
-          <Avatar name={user} />
+          <Avatar name={user ?? undefined} />
           <Box ml="3">
             <Text fontWeight="bold">{user}</Text>
             <Text fontSize="sm">{question}</Text>
@@ -63,3 +105,5 @@ export const Questions: VFC = () => {
     </VStack>
   )
 }
+
+export default Questions

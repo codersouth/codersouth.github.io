@@ -1,22 +1,35 @@
 import React, { VFC } from 'react'
-import { QuestionIcon, CloseIcon, Search2Icon } from '@chakra-ui/icons'
+import { GiPlatform } from 'react-icons/gi'
+import { BiLogInCircle } from 'react-icons/bi'
+import { RiQuestionAnswerFill } from 'react-icons/ri'
+import { FaTheaterMasks } from 'react-icons/fa'
+import { IoIosPeople } from 'react-icons/io'
+import { CgProfile } from 'react-icons/cg'
 import {
-  HStack,
+  VStack,
   Button,
   Box,
   Image,
   Heading,
-  IconButton,
+  useBreakpointValue,
 } from '@chakra-ui/react'
 import { Link } from 'react-router-dom'
+import { useLocation } from 'react-router'
 import { useUser } from '../data/useUser'
 import { SignUp } from '../pages/SignUp'
 import { Login } from '../pages/Login'
-import Logo from '../assets/logo.svg'
+import Logo from '../assets/codersouth.svg'
+import LogoIco from '../assets/codersouth-ico.svg'
 import { useBasicModal } from './useBasicModal'
 
+const isActualPath = (pathname: Location['pathname']) => (path: string) =>
+  !!pathname.match(path)
+
 export const Menu: VFC = () => {
-  const { user, signOut } = useUser()
+  const isSmall = useBreakpointValue({ base: true, lg: false })
+  const { pathname } = useLocation()
+  const matchActualPath = isActualPath(pathname)
+  const { user } = useUser()
 
   const [onToggleSignUp, signUpModal] = useBasicModal({
     body: <SignUp exitSignUp={() => onToggleSignUp()} />,
@@ -31,46 +44,77 @@ export const Menu: VFC = () => {
   })
 
   return (
-    <Box background="teal.50" boxShadow="xl" padding={6} width="full">
-      {signUpModal}
-      {loginModal}
-      <HStack spacing={6}>
-        <Button as={Link} to="/" variant="ghost">
-          <Image src={Logo} width="15rem" />
-        </Button>
+    <Box position="sticky" top={0} width="full">
+      {!user && [signUpModal, loginModal]}
+
+      <VStack alignItems="stretch" spacing={1}>
+        <Link to="/">
+          <Image marginBottom="1rem" src={isSmall ? LogoIco : Logo} w="full" />
+        </Link>
         {!user ? (
           <>
-            <Button onClick={onToggleSignUp}>Registrarse</Button>
-            <Button onClick={onToggleLogin} variant="ghost">
-              Login
+            <Button
+              justifyContent="flex-start"
+              leftIcon={<GiPlatform />}
+              onClick={onToggleSignUp}
+              variant="menu"
+            >
+              {!isSmall && 'Registrarse'}
+            </Button>
+            <Button
+              justifyContent="flex-start"
+              leftIcon={<BiLogInCircle />}
+              onClick={onToggleLogin}
+              variant="menu"
+            >
+              {!isSmall && 'Login'}
             </Button>
           </>
         ) : (
           <>
-            <IconButton
-              aria-label="link"
+            <Button
               as={Link}
-              icon={<QuestionIcon />}
-              to="/make-a-question"
-              variant="ghost"
-            />
-            <IconButton
-              aria-label="link"
+              isActive={matchActualPath('profile')}
+              justifyContent="flex-start"
+              leftIcon={<CgProfile />}
+              to="/profile"
+              variant="menu"
+            >
+              {!isSmall && 'Perfil'}
+            </Button>
+            <Button
               as={Link}
-              icon={<Search2Icon />}
+              isActive={matchActualPath('questions')}
+              justifyContent="flex-start"
+              leftIcon={<RiQuestionAnswerFill />}
               to="/questions"
-              variant="ghost"
-            />
-
-            <IconButton
-              aria-label="button"
-              icon={<CloseIcon />}
-              onClick={signOut}
-              variant="ghost"
-            />
+              variant="menu"
+            >
+              {!isSmall && 'Preguntas'}
+            </Button>
+            <Button
+              as={Link}
+              isActive={matchActualPath('members')}
+              justifyContent="flex-start"
+              leftIcon={<IoIosPeople />}
+              to="/members"
+              variant="menu"
+            >
+              {!isSmall && 'Miembros'}
+            </Button>
+            <Button
+              as={Link}
+              isActive={matchActualPath('talks')}
+              justifyContent="flex-start"
+              leftIcon={<FaTheaterMasks />}
+              to="/talks"
+              variant="menu"
+            >
+              {!isSmall && 'Eventos'}
+            </Button>
           </>
         )}
-      </HStack>
+      </VStack>
     </Box>
   )
 }

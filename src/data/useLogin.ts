@@ -1,8 +1,7 @@
-import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'
+import { signInWithEmailAndPassword } from 'firebase/auth'
 import { useCallback } from 'react'
 import { UserSignUp } from './types'
-
-const auth = getAuth()
+import { auth } from './firebase'
 
 export const useLogin = () => {
   const login = useCallback(({ email, password }: UserSignUp) => {

@@ -38,6 +38,7 @@ module.exports = {
     path: path.resolve(__dirname, 'docs'),
     filename: 'js/[name]-web-[contenthash].js',
     chunkFilename: 'js/[name].[chunkhash].bundle.js',
+    publicPath: '/',
   },
   resolve: {
     extensions: ['.js', '.ts', '.jsx', '.tsx', '.css', '.json'],
@@ -83,6 +84,7 @@ module.exports = {
       },
     ],
   },
+  devtool: 'source-map',
   plugins,
   devServer: {
     port: 3000,

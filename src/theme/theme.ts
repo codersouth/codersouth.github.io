@@ -4,11 +4,30 @@ const Button: ComponentStyleConfig = {
   variants: {
     cs: {
       borderRadius: 'xl',
-      color: 'gray.800',
+      color: 'green.800',
+      fontWeight: '300',
       transition: 'all 200ms linear',
-      background: 'green.400',
+      background: 'green.200',
       _hover: {
-        color: 'gray.900',
+        background: 'green.100',
+        color: 'gray.800',
+      },
+    },
+    menu: {
+      borderRadius: 'xl',
+      color: 'gray.800',
+      pos: 'relative',
+      fontWeight: '300',
+      _hover: {
+        background: 'green.100',
+        color: 'green.800',
+      },
+      _active: {
+        outline: 'none',
+        boxShadow: 'none',
+        background: 'green.200',
+        fontWeight: '800',
+        color: 'green.700',
       },
     },
   },
@@ -73,7 +92,7 @@ const theme = extendTheme({
   styles: {
     global: {
       body: {
-        bg: 'gray.100',
+        bg: 'gray.50',
       },
     },
   },
@@ -83,6 +102,9 @@ const theme = extendTheme({
   fonts: {
     body: 'Inter',
     heading: 'Open Sans',
+  },
+  fontWeights: {
+    heading: 'extrabold',
   },
 })
 

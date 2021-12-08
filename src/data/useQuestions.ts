@@ -11,23 +11,25 @@ enum QA {
 
 type Question = {
   readonly user?: string | null
+  readonly date: number
   readonly question: string
 }
 
-type QuestionWithId = {
-  readonly user: string
-  readonly question: string
+type QuestionWithId = Question & {
   readonly id: string
 }
 
 const mapDataToQuestions = (
   snapshot: DataSnapshot,
 ): readonly QuestionWithId[] =>
-  Object.entries(snapshot.val()).map(([id, val]: readonly unknown[]) => ({
-    user: (val as QuestionWithId).user,
-    question: (val as QuestionWithId).question,
-    id: id as string,
-  }))
+  Object.entries(snapshot.val())
+    .map(([id, val]: readonly unknown[]) => ({
+      user: (val as QuestionWithId).user,
+      question: (val as QuestionWithId).question,
+      date: (val as QuestionWithId).date,
+      id: id as string,
+    }))
+    .sort((a, b) => (a.date > b.date ? 1 : -1))
 
 export const setQuestion = (question: Question) => {
   return set(ref(db, `${QA.path}${uuidv4()}`), question)
