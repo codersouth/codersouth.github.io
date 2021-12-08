@@ -35,7 +35,7 @@ module.exports = {
   },
   mode: isProd ? 'production' : 'development',
   output: {
-    path: path.resolve(__dirname, 'docs'),
+    path: path.resolve(__dirname, 'public'),
     filename: 'js/[name]-web-[contenthash].js',
     chunkFilename: 'js/[name].[chunkhash].bundle.js',
     publicPath: '/',
