@@ -84,7 +84,7 @@ module.exports = {
       },
     ],
   },
-  devtool: 'source-map',
+  devtool: isProd && 'source-map',
   plugins,
   devServer: {
     port: 3000,

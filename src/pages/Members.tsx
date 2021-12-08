@@ -1,7 +1,6 @@
 import React, { VFC } from 'react'
 import { Avatar, Box, Heading, SkeletonCircle, VStack } from '@chakra-ui/react'
 import { useMembers } from '../data/useMembers'
-import { GenericSkeleton } from '../components/GenericSkeleton'
 
 const Members: VFC = () => {
   const { members, isLoadingMembers } = useMembers()
