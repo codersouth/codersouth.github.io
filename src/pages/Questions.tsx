@@ -47,7 +47,7 @@ const Questions: VFC = () => {
       <Text>Hacer una pregunta:</Text>
       <VStack
         alignItems="flex-start"
-        background="white"
+        background="grey.300"
         borderRadius="2xl"
         boxShadow="2xl"
         padding="2rem 1.5rem"
@@ -56,7 +56,7 @@ const Questions: VFC = () => {
         <form onSubmit={handleSubmit(onSubmit)} style={{ width: '100%' }}>
           <Textarea
             {...register('question')}
-            background="teal.50"
+            background="teal.100"
             marginBottom={6}
             placeholder="Pregunta"
             resize="none"
