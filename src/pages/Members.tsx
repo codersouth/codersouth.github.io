@@ -1,45 +1,36 @@
 import React, { VFC } from 'react'
 import {
   Avatar,
-  Box,
-  Flex,
   Grid,
   GridItem,
   Heading,
-  HStack,
-  SkeletonCircle,
-  Text,
   VStack,
+  SkeletonCircle,
+  Tag,
+  Tooltip,
 } from '@chakra-ui/react'
 import { useMembers } from '../data/useMembers'
 
 const Members: VFC = () => {
   const { members, isLoadingMembers } = useMembers()
-  console.log(members.map(({ email }) => email).join(' ; '))
 
   return (
-    <VStack alignItems="flex-start" justifyContent="stretch">
+    <VStack spacing={6}>
       <Heading>Miembros</Heading>
       {isLoadingMembers && <SkeletonCircle />}
-
-      <Grid
-        gap="2rem"
-        templateColumns={['1fr', 'repeat(2, 1fr)', 'repeat(3, 1fr)']}
-      >
+      <Grid gap={8} gridTemplateColumns="repeat(8, 1fr)">
         {members.map(({ uid, email, displayName, photoURL, phoneNumber }) => (
-          <Flex
-            bg="white"
-            borderRadius="2xl"
-            boxShadow="lg"
-            key={uid}
-            padding="1rem 1.2rem"
-          >
-            <Avatar name={displayName ?? email ?? ''} src={photoURL ?? ''} />
-            <Box ml="3">
-              <Text fontWeight="bold">{email}</Text>
-              <Text fontSize="sm">{displayName}</Text>
-            </Box>
-          </Flex>
+          <GridItem key={uid}>
+            <Tooltip label={email}>
+              <Tag padding="1rem" width="auto">
+                <Avatar
+                  name={displayName ?? email ?? ''}
+                  size="md"
+                  src={photoURL ?? ''}
+                />
+              </Tag>
+            </Tooltip>
+          </GridItem>
         ))}
       </Grid>
     </VStack>

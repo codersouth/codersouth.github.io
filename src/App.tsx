@@ -1,5 +1,6 @@
-import React, { lazy } from 'react'
+import React, { lazy, useEffect } from 'react'
 import { Route, Routes, Navigate } from 'react-router-dom'
+import { useColorMode } from '@chakra-ui/react'
 import { Home } from './pages/Home'
 import { useUser } from './data/useUser'
 import { Layout } from './components/Layout'

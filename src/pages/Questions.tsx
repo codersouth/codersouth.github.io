@@ -13,6 +13,7 @@ import {
 import { useForm } from 'react-hook-form'
 import { Question, useQuestions } from '../data/useQuestions'
 import { useUser } from '../data/useUser'
+import { Card } from '../components/Card'
 
 const Questions: VFC = () => {
   const { user } = useUser()
@@ -45,18 +46,10 @@ const Questions: VFC = () => {
     >
       <Heading>Preguntas</Heading>
       <Text>Hacer una pregunta:</Text>
-      <VStack
-        alignItems="flex-start"
-        background="grey.300"
-        borderRadius="2xl"
-        boxShadow="2xl"
-        padding="2rem 1.5rem"
-        width="full"
-      >
+      <Card>
         <form onSubmit={handleSubmit(onSubmit)} style={{ width: '100%' }}>
           <Textarea
             {...register('question')}
-            background="teal.100"
             marginBottom={6}
             placeholder="Pregunta"
             resize="none"
@@ -64,7 +57,7 @@ const Questions: VFC = () => {
           />
           <Button type="submit">Preguntar</Button>
         </form>
-      </VStack>
+      </Card>
 
       <Text>
         {!filter
@@ -87,20 +80,15 @@ const Questions: VFC = () => {
       )}
 
       {filteredQuestions.map(({ user, id, question }) => (
-        <Flex
-          bg="white"
-          borderRadius="2xl"
-          boxShadow="lg"
-          key={id}
-          padding="1rem 1.2rem"
-          width="full"
-        >
-          <Avatar name={user ?? undefined} />
-          <Box ml="3">
-            <Text fontWeight="bold">{user}</Text>
-            <Text fontSize="sm">{question}</Text>
-          </Box>
-        </Flex>
+        <Card key={id}>
+          <HStack alignItems="flex-start">
+            <Avatar name={user ?? undefined} />
+            <Box ml="3">
+              <Text fontWeight="bold">{user}</Text>
+              <Text fontSize="sm">{question}</Text>
+            </Box>
+          </HStack>
+        </Card>
       ))}
     </VStack>
   )

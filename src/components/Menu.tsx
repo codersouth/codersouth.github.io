@@ -9,23 +9,24 @@ import {
   VStack,
   Button,
   Box,
-  Image,
+  Link as ChakraLink,
   Heading,
   useBreakpointValue,
+  useColorModeValue,
 } from '@chakra-ui/react'
 import { Link } from 'react-router-dom'
 import { useLocation } from 'react-router'
 import { useUser } from '../data/useUser'
 import { SignUp } from '../pages/SignUp'
 import { Login } from '../pages/Login'
-import Logo from '../assets/codersouth.svg'
-import LogoIco from '../assets/codersouth-ico.svg'
+import { CodersouthLogo, CodersouthIsoLogo } from '../icons'
 import { useBasicModal } from './useBasicModal'
 
 const isActualPath = (pathname: Location['pathname']) => (path: string) =>
   !!pathname.match(path)
 
 export const Menu: VFC = () => {
+  const colorLogo = useColorModeValue('cyan.800', 'cyan.400')
   const isSmall = useBreakpointValue({ base: true, lg: false })
   const { pathname } = useLocation()
   const matchActualPath = isActualPath(pathname)
@@ -47,10 +48,14 @@ export const Menu: VFC = () => {
     <Box position="sticky" top={0} width="full">
       {!user && [signUpModal, loginModal]}
 
-      <VStack alignItems="stretch" spacing={1}>
-        <Link to="/">
-          <Image marginBottom="1rem" src={isSmall ? LogoIco : Logo} w="full" />
-        </Link>
+      <VStack alignItems="stretch" spacing={4}>
+        <ChakraLink as={Link} padding="0.2rem 0.2rem 1.2rem" to="/">
+          {isSmall ? (
+            <CodersouthIsoLogo color={colorLogo} height="3rem" width="full" />
+          ) : (
+            <CodersouthLogo color={colorLogo} height="full" width="full" />
+          )}
+        </ChakraLink>
         {!user ? (
           <>
             <Button
